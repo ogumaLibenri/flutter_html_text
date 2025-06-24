@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Token Request</title>
+</head>
+<body>
+  <form id="cardForm">
+    <input type="text" id="cardNumber" placeholder="カード番号" required /><br/>
+    <input type="text" id="cardExpire" placeholder="有効期限（MMYY）" required /><br/>
+    <button type="submit">送信</button>
+  </form>
+
+  <script>
+    document.getElementById('cardForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const cardNumber = document.getElementById('cardNumber').value;
+      const cardExpire = document.getElementById('cardExpire').value;
+
+      const tokenApiKey = 'YOUR_API_KEY_HERE'; // ← 発行されたAPIキーに差し替えてください
+
+      const payload = {
+        card_number: cardNumber,
+        card_expire: cardExpire,
+        token_api_key: tokenApiKey,
+      };
+
+      try {
+        const response = await fetch('https://api3.veritrans.co.jp/4gtoken', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const result = await response.json();
+
+        // 成功時：トークンをFlutter側に返す（Flutter WebView経由）
+        if (result.token) {
+          // WebView <-> Flutter の連携用
+          window.flutter_inappwebview.callHandler('onTokenReceived', result.token);
+        } else {
+          alert('トークン取得に失敗しました');
+        }
+
+      } catch (error) {
+        console.error('通信エラー:', error);
+        alert('通信に失敗しました');
+      }
+    });
+  </script>
+</body>
+</html>
