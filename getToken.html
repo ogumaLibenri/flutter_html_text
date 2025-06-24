@@ -8,6 +8,8 @@
   <form id="cardForm">
     <input type="text" id="cardNumber" placeholder="カード番号" required /><br/>
     <input type="text" id="cardExpire" placeholder="有効期限（MMYY）" required /><br/>
+    <input type="text" id="securityCode" placeholder="セキュリティコード"/><br/>
+    <input type="text" id="cardholderName" placeholder="カード名義人"/><br/>
     <button type="submit">送信</button>
   </form>
 
@@ -18,11 +20,13 @@
       const cardNumber = document.getElementById('cardNumber').value;
       const cardExpire = document.getElementById('cardExpire').value;
 
-      const tokenApiKey = 'YOUR_API_KEY_HERE'; // ← 発行されたAPIキーに差し替えてください
+      const tokenApiKey = 'YOUR_API_KEY_HERE'; // TODO: ← 発行されたAPIキーに差し替える
 
       const payload = {
         card_number: cardNumber,
         card_expire: cardExpire,
+        security_code: securityCode,
+        cardholder_name: cardholderName,
         token_api_key: tokenApiKey,
       };
 
