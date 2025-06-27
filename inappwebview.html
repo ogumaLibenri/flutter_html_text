@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>eKYC表示</title>
+  <title>eKYC View Test</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     html, body {
@@ -10,20 +10,24 @@
       padding: 0;
       height: 100%;
       width: 100%;
-      background-color: #000000;
       overflow: hidden;
+    }
+    #ekyc-container {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   </style>
 </head>
 <body>
-  <!-- 外部スクリプトがbodyに要素を追加してくる前提 -->
-  <script>
-    window.addEventListener('load', function () {
-      var s = document.createElement('script');
-      s.charset = 'utf-8';
-      s.src = 'https://app.protechidchecker.com/apps/org1736';
-      document.body.appendChild(s);
-    });
-  </script>
+  <main>
+    <article>
+      <header>
+        <script charset='utf-8' src='https://app.protechidchecker.com/apps/org1736'></script>
+      </header>
+    </article>
+  </main>
 </body>
 </html>
