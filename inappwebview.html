@@ -3,27 +3,21 @@
   <head>
     <meta charset="UTF-8">
     <title>eKYC View Test</title>
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    </style>
   </head>
   <body>
-    <h1>eKYC表示テストFrom Flutter</h1>
-    <main>
-      <article>
-        <header>
-<!--           <script src="https://example.com/embed.js"></script>
-          <div id="d2" style="font-size:xx-large">&nbsp;</div>
-          <script>
-          setInterval(function() {
-            document.getElementById("d2").innerHTML = new Date().toLocaleString();
-          }, 1000);
-          </script> -->
-          <script>
-            document.addEventListener("DOMContentLoaded", function() {
-              document.body.innerHTML += "<p>User-Agent: " + navigator.userAgent + "</p>";
-            });
-          </script>
-          <script charset='utf-8' src='https://app.protechidchecker.com/apps/org1736'></script>
-        </header>
-      </article>
-    </main>
+    <iframe src="https://app.protechidchecker.com/apps/org1736"></iframe>
   </body>
 </html>
