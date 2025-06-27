@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>eKYC View Test</title>
-  </head>
-  <body>
-    <h1>eKYC表示テストFrom Flutter</h1>
-    <main>
-      <article>
-        <header>
-          <script>
-            document.addEventListener("DOMContentLoaded", function() {
-              document.body.innerHTML += "<p>User-Agent: " + navigator.userAgent + "</p>";
-            });
-          </script>
-          <script charset='utf-8' src='https://app.protechidchecker.com/apps/org1736'></script>
-        </header>
-      </article>
-    </main>
-  </body>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>eKYC表示</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #000000; /* 任意。デフォ背景が黒なら */
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+  <!-- 外部スクリプトがbodyに要素を追加してくる前提 -->
+  <script charset="utf-8" src="https://app.protechidchecker.com/apps/org1736"></script>
+</body>
 </html>
