@@ -16,6 +16,13 @@
 </head>
 <body>
   <!-- 外部スクリプトがbodyに要素を追加してくる前提 -->
-  <script charset="utf-8" src="https://app.protechidchecker.com/apps/org1736"></script>
+  <script>
+    window.addEventListener('load', function () {
+      var s = document.createElement('script');
+      s.charset = 'utf-8';
+      s.src = 'https://app.protechidchecker.com/apps/org1736';
+      document.body.appendChild(s);
+    });
+  </script>
 </body>
 </html>
