@@ -15,60 +15,39 @@
   </style>
 </head>
 <body>
-  <form id="cardForm">
-    <input type="text" id="cardNumber" placeholder="カード番号" required /><br/>
-    <input type="text" id="cardExpire" placeholder="有効期限（MMYY）" required /><br/>
-    <input type="text" id="securityCode" placeholder="セキュリティコード"/><br/>
-    <input type="text" id="cardholderName" placeholder="カード名義人"/><br/>
-    <h2 id="token">YOUR_API_KEY_HERE</h2> <!-- TODO: ← 発行されたAPIキーに差し替える -->
-    <button type="submit">送信</button>
-  </form>
-
   <script>
     document.getElementById('cardForm').addEventListener('submit', async function (e) {
       e.preventDefault();
-      
-      var data = {};
-      data.token_api_key = document.getElementById('token').innerText;
-      if (document.getElementById('cardNumber')) {
-          data.card_number = document.getElementById('cardNumber').value;
-      }
-      if (document.getElementById('cardExpire')) {
-          data.card_expire = document.getElementById('cardExpire').value;
-      }
-      if (document.getElementById('securityCode')) {
-          data.security_code = document.getElementById('securityCode').value;
-      }
-      if (document.getElementById('cardholderName')) {
-          data.cardholder_name = document.getElementById('cardholderName').value;
-      }
-      data.lang = "ja";
-        
-      var url = 'https://api3.veritrans.co.jp/4gtoken';
-   
-      var xhr = new XMLHttpRequest();
-      xhr.open('POST', url, true);
-      xhr.setRequestHeader('Accept', 'application/json');
-      xhr.setRequestHeader('Content-Type', 'application/json; charset=utf-8');
-      xhr.addEventListener('loadend', function () {
-          if (xhr.status === 0) {
-              alert("トークンサーバーとの接続に失敗しました");
-              return;
-          }
-          var response = JSON.parse(xhr.response);
-          if (xhr.status == 200) {
-              document.getElementById('cardNumber').value = "";
-              document.getElementById('cardExpire').value = "";
-              document.getElementById('securityCode').value = "";
-              document.getElementById('cardholderName').value = "";
-              document.getElementById('token').value = response.token;
-              document.forms[0].submit();
-          }
-          else {
-              alert(response.message);
-          }
+    
+      const data = {
+        token_api_key: document.getElementById('token').innerText,
+        card_number: document.getElementById('cardNumber').value,
+        card_expire: document.getElementById('cardExpire').value,
+        security_code: document.getElementById('securityCode').value,
+        cardholder_name: document.getElementById('cardholderName').value,
+        lang: "ja"
+      };
+    
+      const url = 'https://api3.veritrans.co.jp/4gtoken';
+    
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
       });
-      xhr.send(JSON.stringify(data));
+    
+      const result = await response.json();
+    
+      if (response.status === 200) {
+        // Flutterにトークンを渡す
+        window.flutter_inappwebview.callHandler('onTokenReceived', result.token);
+      } else {
+        alert(result.message);
+      }
+    });
   </script>
 </body>
 </html>
